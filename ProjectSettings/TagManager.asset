@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: LevelParent
+    uniqueID: 1537305895
+    locked: 0
+  - name: GameplayUi
+    uniqueID: 3350719265
+    locked: 0
+  - name: PauseMenu
+    uniqueID: 1634067967
+    locked: 0
+  - name: MainMenu
+    uniqueID: 2829919065
+    locked: 0
+  - name: LoadingScreen
+    uniqueID: 2343265695
+    locked: 0

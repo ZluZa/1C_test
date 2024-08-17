@@ -15,4 +15,4 @@ MonoBehaviour:
   objectSprite: {fileID: 0}
   objectName: 
   enemySpeed: {x: 0, y: 0}
-  enemyHp: 0
+  enemyHp: {x: 0, y: 0}

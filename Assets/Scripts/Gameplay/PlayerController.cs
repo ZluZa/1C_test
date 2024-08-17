@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
         playerX = Mathf.Lerp(playerX, _playerMovement.localPosition.x, Time.deltaTime * _data.MovementSpeed);
         targetX = Mathf.Lerp(targetX, playerX, Time.deltaTime * _data.MovementSpeed);
         _player.localPosition = new Vector2(playerX, _player.localPosition.y);
-        _playerMovement.localPosition = _player.localPosition;
+        _playerImage.localPosition = _player.localPosition;
         _viewTarget.localPosition = new Vector2(targetX, _viewTarget.localPosition.y);
 
     }

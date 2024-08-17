@@ -9,6 +9,7 @@ public class SettingsWindow : MonoBehaviour
     [SerializeField] private string showAnimation = "SettingsWindowShow";
     [SerializeField] private string hideAnimation = "SettingsWindowHide";
     
+    [SerializeField] private Button _closebutton;
     private Animation _animation;
     private Button _button;
     private bool _opened = false;
@@ -17,14 +18,18 @@ public class SettingsWindow : MonoBehaviour
     {
         _animation = GetComponent<Animation>();
         _button = GetComponent<Button>();
-        _button.onClick.AddListener(ShowHideWindow);
+        _button.onClick.AddListener(ShowWindow);
+        _closebutton.onClick.AddListener(HideWindow);
     }
 
-    private void ShowHideWindow()
+    private void ShowWindow()
     {
-        _animation.Play(!_opened ? showAnimation : hideAnimation);
-        _opened = !_opened;
-
+        _animation.Play(showAnimation);
+        _opened = true;
     }
-    
+    private void HideWindow()
+    {
+        _animation.Play(hideAnimation);
+        _opened = false;
+    }
 }

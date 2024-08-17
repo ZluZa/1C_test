@@ -18,4 +18,4 @@ MonoBehaviour:
   attackDamage: 1
   attackSpeed: 2
   bulletSpeed: 1
-  movementSpeed: 1
+  movementSpeed: 10

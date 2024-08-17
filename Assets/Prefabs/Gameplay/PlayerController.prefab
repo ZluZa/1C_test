@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2825}
+  m_AnchoredPosition: {x: 0, y: 2176}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3611412665268354704
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 0.9622972, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -324,11 +324,11 @@ MonoBehaviour:
   m_useColorUp: 1
   m_colorUp:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4294967295
   m_useColorDown: 1
   m_colorDown:
     serializedVersion: 2
-    rgba: 671154116
+    rgba: 1057029375
 --- !u!60 &3815511670238878661
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class CanvasElement : MonoBehaviour
 {
+    protected CanvasManager CanvasManager;
+    
     private const string FallbackShowAnimation = "DefaultCanvasElementShow";
     private const string FallbackHideAnimation = "DefaultCanvasElementHide";
     
@@ -19,15 +21,13 @@ public class CanvasElement : MonoBehaviour
 
     private Coroutine _showHideCoroutine;
 
-    private void Awake()
+    public virtual IEnumerator Init(CanvasManager cm)
     {
+        CanvasManager = cm;
         _canvasGroup = GetComponentInChildren<CanvasGroup>();
         _animation = GetComponent<Animation>();
         _parent = _canvasGroup.transform;
-    }
-
-    public virtual IEnumerator Init()
-    {
+        HideElement(false, delegate {  });
         yield return null;
     }
 

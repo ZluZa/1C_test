@@ -25,7 +25,13 @@ public class CoreGame : MonoBehaviour
         foreach (var m in GetComponentsInChildren<BaseManager>())
             _managers.Add(m.GetType(), m);
         foreach (var m in _managers.Values)
+        {
             yield return m.Init();
-        onManagersInitialized?.Invoke();
+        }
+        onManagersInitialized.Invoke();
+    }
+    public BaseManager GetManager(Type type)
+    {
+        return _managers[type];
     }
 }

@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(_gameplayCoroutine);
         while (true)
         {
-            if (Ke)
             yield return new WaitForEndOfFrame();
         }
     }

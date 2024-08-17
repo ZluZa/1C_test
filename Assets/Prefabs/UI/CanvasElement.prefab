@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7032627157332107171}
   - component: {fileID: 8682367166214528743}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,8 @@ GameObject:
   - component: {fileID: 6595708198370497433}
   - component: {fileID: 1315296309433250541}
   - component: {fileID: 8295597810627107398}
-  m_Layer: 0
+  - component: {fileID: 6716628699867751375}
+  m_Layer: 5
   m_Name: CanvasElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,3 +129,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!111 &6716628699867751375
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780315724805010098}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 7481344b734204619912da236f4c6041, type: 2}
+  - {fileID: 7400000, guid: db5d45ed174124591b8a6ba4efb184f1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

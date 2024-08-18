@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922a09296051445cfa24da5714858220, type: 3}
-  m_Name: EnemyFactoryData
+  m_Name: EnemyFactoryData3
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 0}
   objectName: 
-  enemySpeed: {x: 0.033597652, y: 0.18359765}
-  enemyHp: {x: 1, y: 10}
+  enemySpeed: {x: 0.54, y: 1.3045971}
+  enemyHp: {x: 27.927032, y: 48.54703}

@@ -1,0 +1,160 @@
+html {
+    overflow: hidden;
+}
+
+html.mobile {
+    overflow: auto !important;
+}
+
+.game {
+    height: 100%;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    display: block;
+    margin:auto auto;
+}
+
+.mobile .game {
+    height: 100%;
+    width: 100%;
+}
+
+.mobile .game:before,
+.mobile .game:after {
+    width:2%;
+    background: black;
+}
+
+/*@media (min-width: 640px) and (max-height: 400px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 720px) and (max-height: 480px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 854px) and (max-height: 540px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 960px) and (max-height: 720px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 1280px) and (max-height: 900px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 1600px) and (max-height: 1080px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 1920px) and (max-height: 1152px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 2048px) and (max-height: 1440px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 2560px) and (max-height: 1800px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 3200px) and (max-height: 2160px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 3840px) and (max-height: 2880px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 5120px) and (max-height: 4320px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 7680px) and (max-height: 5760px) {.desktop .game {height: 100%; width: auto;}}
+@media (min-width: 10240px) and (max-height: 6480px) {.desktop .game {height: 100%; width: auto;}}*/
+
+
+
+body {
+    background: black;
+    display: inline-flex;
+    aspect-ratio: 16/9;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    padding: 0;
+    margin: 0
+}
+
+#unity-container {
+
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    position: relative
+}
+
+#unity-container.unity-desktop {
+    width: 100%;
+    height: 100%
+}
+
+#unity-container.unity-mobile {
+    width: 100%;
+    height: 93%
+}
+
+#unity-canvas {
+    width: 100%;
+    height: 100%;
+    background: #096ac1;
+    aspect-ratio: 16/9;
+}
+
+.unity-mobile #unity-canvas {
+    width: 100%;
+    height: 100%
+}
+
+#unity-loading-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none
+}
+
+#unity-logo {
+    width: 140px;
+    height: 130px;
+    background: url('unity-logo-dark.png') no-repeat center;
+    background-size: auto 100%;
+}
+
+#unity-progress-bar-empty {
+    width: 141px;
+    height: 18px;
+    margin-top: 10px;
+    background: url('progress-bar-empty-dark.png') no-repeat center;
+    background-size: auto 100%;
+}
+
+#unity-progress-bar-full {
+    width: 0%;
+    height: 18px;
+    margin-top: 10px;
+    background: url('progress-bar-full-dark.png') no-repeat center;
+    background-size: auto 100%;
+}
+
+#unity-footer {
+    position: relative;
+    display: none
+}
+
+.unity-mobile #unity-footer {
+    display: none;
+}
+
+#unity-webgl-logo {
+    float: left;
+    width: 204px;
+    height: 38px;
+    background: url('webgl-logo.png') no-repeat center
+}
+
+#unity-build-title {
+    float: right;
+    margin-right: 10px;
+    line-height: 38px;
+    font-family: arial;
+    font-size: 18px
+}
+
+#unity-fullscreen-button {
+    float: right;
+    width: 38px;
+    height: 38px;
+    background: url('fullscreen-button.png') no-repeat center
+}
+
+#unity-warning {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%);
+    background: white;
+    padding: 10px;
+    display: none
+}

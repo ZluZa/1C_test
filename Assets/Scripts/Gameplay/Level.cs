@@ -49,7 +49,7 @@ public class Level : FactoryObject
         _enemiesToSpawn = Random.Range(_lData.EnemiesAmount.x, _lData.EnemiesAmount.y);
         while (_enemiesSpawned < _enemiesToSpawn)
         {
-            Debug.Log("FACTORY IN PROGRESS " + _enemiesSpawned + "/" + _enemiesToSpawn);
+//            Debug.Log("FACTORY IN PROGRESS " + _enemiesSpawned + "/" + _enemiesToSpawn);
             var enemy = _enemiesFactory.CreateEnemy(_lData.EnemiesData);
             enemy.onBorderAchieve.AddListener(HitPlayer);
             enemy.onEnemyKilled.AddListener(delegate

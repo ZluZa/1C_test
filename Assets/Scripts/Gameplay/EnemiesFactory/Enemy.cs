@@ -40,7 +40,7 @@ public class Enemy : FactoryObject
                 var walkSpeed = _speed / 10;
                 while (true)
                 {
-                    Debug.Log(_speed);
+//                    Debug.Log(_speed);
                     transform.Translate(new Vector3(0, -walkSpeed));
                     yield return new WaitForEndOfFrame();
                 }
@@ -76,6 +76,7 @@ public class Enemy : FactoryObject
                 Instantiate(onHitVfx);
             if (_hp <= 0)
                 OnKill();
+            Destroy(bullet.gameObject);
         }
         private void OnKill()
         {

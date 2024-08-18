@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : FactoryObject
 {
@@ -10,12 +12,13 @@ public class Player : FactoryObject
     [SerializeField] private Transform _playerMovement;
     [SerializeField] private Transform _playerImage;
     [SerializeField] private Transform _viewTarget;
+    [SerializeField] private ShooterController _shooterController;
     
     private GameManager _gManager;
     private Coroutine _gameplayCoroutine;
     private Vector2 _leftRightBorders;
 
-    private Enemy _enemyInSight;
+    public List<Enemy> enemyInSight = new();
 
     public override FactoryObject Init(BaseData data)
     {
@@ -36,7 +39,7 @@ public class Player : FactoryObject
 
     IEnumerator GameplayCoroutine()
     {
-        _enemyInSight = null;
+        enemyInSight = new List<Enemy>();
         if (_gameplayCoroutine != null)
             StopCoroutine(_gameplayCoroutine);
         while (true)
@@ -72,6 +75,17 @@ public class Player : FactoryObject
         }
     }
 
+    public void AddEnemyInSight(Enemy enemy)
+    {
+        if (!enemyInSight.Contains(enemy))
+            enemyInSight.Add(enemy);
+    }
+
+    public void RemoveEnemyInSight(Enemy enemy)
+    {
+        if (enemyInSight.Contains(enemy))
+            enemyInSight.Remove(enemy);
+    }
     private void AnimatePlayer()
     {
         _player.up = _viewTarget.localPosition - _player.localPosition;
@@ -81,13 +95,22 @@ public class Player : FactoryObject
         targetX = Mathf.Lerp(targetX, playerX, Time.deltaTime * _data.MovementSpeed);
         _player.localPosition = new Vector2(playerX, _player.localPosition.y);
         _playerImage.localPosition = _player.localPosition;
-        if (_enemyInSight == null)
+        if (enemyInSight.Count == 0)
+        {
             _playerImage.up = _viewTarget.localPosition - _playerImage.localPosition;
+        }
         else
         {
-            _playerImage.up = _enemyInSight.transform.position - _playerImage.position;
+            _shooterController.Shoot(_data.AttackDamage, _data.BulletSpeed, _data.AttackSpeed, transform.parent);
+            _playerImage.up = 
+                CalculateClosestEnemy().transform.position - _playerImage.position;
         }
         _viewTarget.localPosition = new Vector2(targetX, _viewTarget.localPosition.y);
+    }
 
+    private Enemy CalculateClosestEnemy()
+    {
+        return enemyInSight.OrderBy(e =>
+            Vector2.Distance(e.transform.position, _player.position)).FirstOrDefault();
     }
 }

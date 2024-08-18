@@ -72,10 +72,17 @@ public class GameManager : BaseManager
         currentLevel.transform.SetParent(_levelFactory.transform);
         currentLevel.transform.localScale = Vector3.one;
         CanvasManager cm = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));
+        GameplayUiElement gu = (GameplayUiElement) cm.GetManager(typeof(GameplayUiElement));
+        gu.PrepareStartAnimation();
+        
         LevelParentElement lp = (LevelParentElement) cm.GetManager(typeof(LevelParentElement));
         LoadingScreenElement ls = 
             (LoadingScreenElement) cm.GetManager(typeof(LoadingScreenElement));
-        lp.ShowElement(false, () => ls.HideElement(true, currentLevel.StartGameplay));
+        lp.ShowElement(false, () => ls.HideElement(true, delegate
+        {
+            currentLevel.StartGameplay();
+           gu.StartGameAnimation(); 
+        }));
        
     }
 }

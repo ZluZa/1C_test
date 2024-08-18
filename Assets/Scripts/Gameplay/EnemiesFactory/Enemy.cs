@@ -5,12 +5,14 @@ using Gameplay;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
 public class Enemy : FactoryObject
-    {
-        [SerializeField] private Rigidbody2D _rigidbody2D;
+{
+    private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Slider hpSlider;
         [SerializeField] private ParticleSystem onKillVfx;
         [SerializeField] private ParticleSystem onBorderAchieveVfx;
         [SerializeField] private ParticleSystem onHitVfx;
@@ -26,8 +28,15 @@ public class Enemy : FactoryObject
         public override FactoryObject Init(BaseData data)
         {
             EnemyFactoryData eData = (EnemyFactoryData) data;
+            _rigidbody2D = GetComponent<Rigidbody2D>();
             _speed = Random.Range(eData.EnemySpeed.x, eData.EnemySpeed.y);
             _hp = Random.Range(eData.EnemyHp.x, eData.EnemyHp.y);
+            if (hpSlider != null)
+            {
+                hpSlider.maxValue = _hp;
+                hpSlider.minValue = 0;
+                hpSlider.value = hpSlider.maxValue;
+            }
             GoToPlayer();
             return base.Init(data);
         }
@@ -37,11 +46,11 @@ public class Enemy : FactoryObject
             actionCoroutine = StartCoroutine(ActionCoroutine());
             IEnumerator ActionCoroutine()
             {
-                var walkSpeed = _speed / 10;
                 while (true)
                 {
-//                    Debug.Log(_speed);
-                    transform.Translate(new Vector3(0, -walkSpeed));
+                    var currentVelocity = _rigidbody2D.velocity.y - _speed;
+                    _rigidbody2D.velocity = new Vector2(0, Mathf.Clamp(currentVelocity, -_speed, Single.PositiveInfinity));
+                    //transform.Translate(new Vector3(0, -walkSpeed));
                     yield return new WaitForEndOfFrame();
                 }
             }
@@ -72,6 +81,8 @@ public class Enemy : FactoryObject
         private void OnHit(Bullet bullet)
         {
             _hp -= bullet.GetDamage();
+            hpSlider.value = _hp;
+            _rigidbody2D.AddForce(new Vector2(0, 8), ForceMode2D.Impulse);
             if (onHitVfx != null)
                 Instantiate(onHitVfx);
             if (_hp <= 0)

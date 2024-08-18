@@ -113,4 +113,9 @@ public class Player : FactoryObject
         return enemyInSight.OrderBy(e =>
             Vector2.Distance(e.transform.position, _player.position)).FirstOrDefault();
     }
+
+    public void KillPlayer()
+    {
+        
+    }
 }

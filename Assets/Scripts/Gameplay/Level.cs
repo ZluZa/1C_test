@@ -12,8 +12,13 @@ public class Level : FactoryObject
     private LevelData _lData;
     private int _enemiesToSpawn;
     private int _enemiesSpawned;
+    
+    private int _enemiesKilled;
+    private int _hpRemaining;
 
     private Coroutine _enemyFactoryCoroutine;
+
+    private GameplayUiElement _gameplayUiElement;
 
     public UnityEvent onEnemyDestroyed;
     
@@ -23,6 +28,10 @@ public class Level : FactoryObject
     {
         _lData = (LevelData) data;
         GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        CanvasManager ce = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));
+        _gameplayUiElement = (GameplayUiElement) ce.GetManager(typeof(GameplayUiElement));
+        _hpRemaining = _lData.BaseHp;
+        _gameplayUiElement.UpdateHealth(_lData.BaseHp, _lData.BaseHp);
         currentPlayer = _playerFactory.CreatePlayer(gm.AvailableSkins[gm.GetSelectedSkin()]);
         currentPlayer.transform.SetParent(_playerFactory.transform);
         currentPlayer.transform.localPosition = Vector3.zero;
@@ -30,7 +39,7 @@ public class Level : FactoryObject
     }
 
     public void StartGameplay()
-    {
+    { 
         currentPlayer.StartPlaying();
         _enemyFactoryCoroutine = StartCoroutine(StartEnemyFactory());
     }
@@ -39,6 +48,8 @@ public class Level : FactoryObject
     {
         if (_enemyFactoryCoroutine != null)
             StopCoroutine(_enemyFactoryCoroutine);
+        if (currentPlayer != null)
+            currentPlayer.StopPlaying();
     }
 
     private IEnumerator StartEnemyFactory()
@@ -46,12 +57,14 @@ public class Level : FactoryObject
         Debug.Log("START_FACTORY");
         Rect enemiesFactoryRect = _enemiesFactory.GetComponent<RectTransform>().rect;
         _enemiesSpawned = 0;
+        _enemiesKilled = 0;
         _enemiesToSpawn = Random.Range(_lData.EnemiesAmount.x, _lData.EnemiesAmount.y);
+        _gameplayUiElement.UpdateProgress(_enemiesToSpawn, _enemiesToSpawn);
         while (_enemiesSpawned < _enemiesToSpawn)
         {
 //            Debug.Log("FACTORY IN PROGRESS " + _enemiesSpawned + "/" + _enemiesToSpawn);
             var enemy = _enemiesFactory.CreateEnemy(_lData.EnemiesData);
-            enemy.onBorderAchieve.AddListener(HitPlayer);
+            enemy.onBorderAchieve.AddListener(HitBase);
             enemy.onEnemyKilled.AddListener(delegate
             {
                 OnEnemyKilled();
@@ -69,13 +82,26 @@ public class Level : FactoryObject
         }
     }
 
-    private void HitPlayer()
+    private void HitBase()
     {
-        Debug.Log("HitPlayer");
+        _hpRemaining--;
+        _gameplayUiElement.UpdateHealth(_hpRemaining, _lData.BaseHp);
+        if (_hpRemaining <= 0)
+        {
+            StopGameplay();
+            currentPlayer.KillPlayer();
+            _gameplayUiElement.ShowWinLoseScreen(false);
+        }
     }
 
     private void OnEnemyKilled()
     {
-        Debug.Log("EnemyKilled");
+        _enemiesKilled++;
+        _gameplayUiElement.UpdateProgress(_enemiesKilled, _enemiesToSpawn);
+        if (_enemiesKilled+(_lData.BaseHp-_hpRemaining) >= _enemiesToSpawn)
+        {
+            StopGameplay();
+            _gameplayUiElement.ShowWinLoseScreen(true);
+        }
     }
 }

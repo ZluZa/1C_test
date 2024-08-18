@@ -14,12 +14,24 @@ public class SettingsWindow : MonoBehaviour
     private Button _button;
     private bool _opened = false;
 
+    [SerializeField] private List<Button> skinSelectors = new();
+    [SerializeField] private List<Button> levelSelectors = new();
     private void Awake()
     {
         _animation = GetComponent<Animation>();
         _button = GetComponent<Button>();
         _button.onClick.AddListener(ShowWindow);
         _closebutton.onClick.AddListener(HideWindow);
+        for (int i = 0; i < skinSelectors.Count; i++)
+        {
+            var i1 = i;
+            skinSelectors[i].onClick.AddListener(() => AssignSkin(i1));
+        }
+        for (int i = 0; i < levelSelectors.Count; i++)
+        {
+            var i1 = i;
+            levelSelectors[i].onClick.AddListener(() => AssignLevel(i1));
+        }
     }
 
     private void ShowWindow()
@@ -31,5 +43,16 @@ public class SettingsWindow : MonoBehaviour
     {
         _animation.Play(hideAnimation);
         _opened = false;
+    }
+
+    private void AssignLevel(int id)
+    {
+        GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        gm.SetLevel(id);
+    }
+    private void AssignSkin(int id)
+    {
+        GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        gm.SetSkin(id);
     }
 }

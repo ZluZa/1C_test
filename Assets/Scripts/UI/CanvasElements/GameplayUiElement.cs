@@ -75,7 +75,7 @@ public class GameplayUiElement : CanvasElement
         {
             CanvasManager.HideEveryWindow();
             MainMenuElement mme = (MainMenuElement) CanvasManager.GetManager(typeof(MainMenuElement));
-            mme.ShowElement(false, delegate { ls.HideElement(true, delegate {  }); });
+            mme.ShowElement(true, delegate { ls.HideElement(true, delegate {  }); });
         });
     }
 
@@ -87,10 +87,10 @@ public class GameplayUiElement : CanvasElement
 
         ls.ShowElement(true, delegate
         {
+            CanvasManager.HideEveryWindow();
             GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
             gm.SetLevel(gm.GetSelectedLevel()+1);
             gm.StartLevel();
-            CanvasManager.HideEveryWindow();
         });
     }
 

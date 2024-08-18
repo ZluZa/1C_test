@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class Player : FactoryObject
 {
-    private GameManager _gManager;
-    private Coroutine _gameplayCoroutine;
-    private Vector2 _leftRightBorders;
     [SerializeField] private PlayerData _data;
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _playerMovement;
     [SerializeField] private Transform _playerImage;
     [SerializeField] private Transform _viewTarget;
+    
+    private GameManager _gManager;
+    private Coroutine _gameplayCoroutine;
+    private Vector2 _leftRightBorders;
+
+    private Enemy _enemyInSight;
 
     public override FactoryObject Init(BaseData data)
     {
@@ -33,6 +36,7 @@ public class Player : FactoryObject
 
     IEnumerator GameplayCoroutine()
     {
+        _enemyInSight = null;
         if (_gameplayCoroutine != null)
             StopCoroutine(_gameplayCoroutine);
         while (true)

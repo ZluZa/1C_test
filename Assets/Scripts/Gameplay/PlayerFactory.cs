@@ -1,7 +1,7 @@
 
     public class PlayerFactory : Factory<Player>
     {
-        public Player CreateEnemy(PlayerData data)
+        public Player CreatePlayer(PlayerData data)
         {
             return (Player) GetNewInstance().Init(data);
         }

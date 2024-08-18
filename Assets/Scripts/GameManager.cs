@@ -8,13 +8,15 @@ public class GameManager : BaseManager
     private List<LevelData> _availableLevels;
     private List<BonusData> _availableBonuses;
     private List<PlayerData> _availableSkins;
-
+    
     public List<LevelData> AvailableLevels => _availableLevels;
     public List<PlayerData> AvailableSkins => _availableSkins;
     public List<BonusData> AvailableBonuses => _availableBonuses;
 
     private int _selectedLevel = 0;
     private int _selectedSkin = 0;
+
+    [HideInInspector] public Level currentLevel;
     
     public override IEnumerator Init()
     {
@@ -57,5 +59,23 @@ public class GameManager : BaseManager
     {
         SetLevel(PlayerPrefs.GetInt("Level", 0));
         SetSkin(PlayerPrefs.GetInt("Skin", 0));
+    }
+
+    public void StartLevel()
+    {
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+            currentLevel = null;
+        }
+        currentLevel = _levelFactory.CreateLevel(_availableLevels[_selectedLevel]);
+        currentLevel.transform.SetParent(_levelFactory.transform);
+        currentLevel.transform.localScale = Vector3.one;
+        CanvasManager cm = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));
+        LevelParentElement lp = (LevelParentElement) cm.GetManager(typeof(LevelParentElement));
+        LoadingScreenElement ls = 
+            (LoadingScreenElement) cm.GetManager(typeof(LoadingScreenElement));
+        lp.ShowElement(false, () => ls.HideElement(true, currentLevel.StartGameplay));
+       
     }
 }

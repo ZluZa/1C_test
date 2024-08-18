@@ -11,9 +11,12 @@ public class MainMenuElement : CanvasElement
     public override IEnumerator Init(CanvasManager cm)
     {
         yield return base.Init(cm);
-        startGameButton.onClick.AddListener(() => HideElement(true, delegate {  }));
+        startGameButton.onClick.AddListener(StartLevel);
+        
         CanvasManager.onLoaderScreenHidden?.AddListener(() => ShowElement(true,
-            delegate { CanvasManager.onLoaderScreenHidden.RemoveListener(() => ShowElement(true, delegate { })); }));
+            delegate {
+                CanvasManager.onLoaderScreenHidden.RemoveAllListeners();
+            }));
         GameManager gameManager = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
         UpdateLevelNumber(gameManager.GetSelectedLevel());
     }
@@ -21,5 +24,18 @@ public class MainMenuElement : CanvasElement
     public void UpdateLevelNumber(int id)
     {
         levelNum.text = "Level " + id;
+    }
+
+    public void StartLevel()
+    {
+        CanvasManager.onLoaderScreenHidden.RemoveAllListeners();
+        HideElement(true, delegate {  });
+        LoadingScreenElement ls = 
+            (LoadingScreenElement) CanvasManager.GetManager(typeof(LoadingScreenElement));
+        ls.ShowElement(true, delegate
+        {
+            GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+            gm.StartLevel();
+        });
     }
 }

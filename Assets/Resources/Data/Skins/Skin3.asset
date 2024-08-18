@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 0}
   objectName: 
-  attackRange: 500
-  attackDamage: 10
-  attackSpeed: 0.05
-  bulletSpeed: 0.1
-  movementSpeed: 10
+  attackRange: 400
+  attackDamage: 80
+  attackSpeed: 0.01
+  bulletSpeed: 0.05
+  movementSpeed: 25

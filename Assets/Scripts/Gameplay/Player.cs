@@ -81,6 +81,12 @@ public class Player : FactoryObject
         targetX = Mathf.Lerp(targetX, playerX, Time.deltaTime * _data.MovementSpeed);
         _player.localPosition = new Vector2(playerX, _player.localPosition.y);
         _playerImage.localPosition = _player.localPosition;
+        if (_enemyInSight == null)
+            _playerImage.up = _viewTarget.localPosition - _playerImage.localPosition;
+        else
+        {
+            _playerImage.up = _enemyInSight.transform.position - _playerImage.position;
+        }
         _viewTarget.localPosition = new Vector2(targetX, _viewTarget.localPosition.y);
 
     }

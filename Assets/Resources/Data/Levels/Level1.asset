@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 0}
-  objectName: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 1"
-  enemiesAmount: {x: 3, y: 30}
-  enemiesSpawnDelay: {x: 0.5, y: 2}
+  objectName: Level 1
+  _enemiesData: {fileID: 11400000, guid: a564dac733081489481ddca1030964fb, type: 2}
+  _enemiesAmount: {x: 10, y: 20}
+  _enemiesSpawnDelay: {x: 0.52, y: 2.4287767}

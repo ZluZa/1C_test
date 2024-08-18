@@ -20,6 +20,12 @@ public class FieldOfView : MonoBehaviour
        _cut = GetComponent<UICornerCut>();
    }
 
+   public void ChangeFov(float amount)
+   {
+       var fov = _cut.cornerSize;
+       fov = new Vector2(fov.x, amount);
+       _cut.cornerSize = fov;
+   }
    private void Update()
    { 
        _points = new Vector3[4];

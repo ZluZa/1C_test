@@ -220,12 +220,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 2706042067890166521}
   _text: {fileID: 0}
-  _data: {fileID: 11400000, guid: 74099fa3a89b54200b60d93ac421202e, type: 2}
+  _data: {fileID: 0}
   _player: {fileID: 6753977128232920494}
   _playerMovement: {fileID: 2984127358787797246}
   _playerImage: {fileID: 4227181078089895160}
   _viewTarget: {fileID: 891158262504188615}
   _shooterController: {fileID: 3631633172264787883}
+  fov: {fileID: 4902821181453698546}
   enemyInSight: []
 --- !u!1 &4936525007770923176
 GameObject:

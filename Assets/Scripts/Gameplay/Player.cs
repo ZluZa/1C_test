@@ -13,6 +13,7 @@ public class Player : FactoryObject
     [SerializeField] private Transform _playerImage;
     [SerializeField] private Transform _viewTarget;
     [SerializeField] private ShooterController _shooterController;
+    [SerializeField] private FieldOfView fov;
     
     private GameManager _gManager;
     private Coroutine _gameplayCoroutine;
@@ -22,8 +23,10 @@ public class Player : FactoryObject
 
     public override FactoryObject Init(BaseData data)
     {
+        _data = (PlayerData) data;
         var rect = GetComponent<RectTransform>().rect;
         _leftRightBorders = new Vector2(rect.xMin, rect.xMax);
+        fov.ChangeFov(_data.AttackRange);
         _gManager = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
         return base.Init(data);
     }

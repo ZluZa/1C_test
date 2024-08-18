@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/EnemyFactoryData", fileName = "EnemyFactoryData")]
 public class EnemyFactoryData : BaseData
 {
-    [MinMaxSlider(0.01f, 1)][SerializeField] private Vector2 enemySpeed;
+    [MinMaxSlider(0.01f, 10)][SerializeField] private Vector2 enemySpeed;
     [MinMaxSlider(1, 100)][SerializeField] private Vector2 enemyHp;
 
     public Vector2 EnemySpeed => enemySpeed;

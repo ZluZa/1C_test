@@ -37,9 +37,11 @@ public class Enemy : FactoryObject
             actionCoroutine = StartCoroutine(ActionCoroutine());
             IEnumerator ActionCoroutine()
             {
+                var walkSpeed = _speed / 10;
                 while (true)
                 {
-                    transform.Translate(new Vector3(0, -_speed));
+                    Debug.Log(_speed);
+                    transform.Translate(new Vector3(0, -walkSpeed));
                     yield return new WaitForEndOfFrame();
                 }
             }

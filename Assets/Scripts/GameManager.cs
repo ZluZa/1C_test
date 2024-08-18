@@ -30,12 +30,13 @@ public class GameManager : BaseManager
     
     public int GetSelectedLevel()
     {
-        return _selectedLevel + 1;
+        return _selectedLevel;
     }
 
     public void SetLevel(int id)
     {
         _selectedLevel = id;
+        SavePrefs();
     }
 
     public int GetSelectedSkin()
@@ -46,6 +47,17 @@ public class GameManager : BaseManager
     public void SetSkin(int id)
     {
         _selectedSkin = id;
+        SavePrefs();
+    }
+
+    public void SetEnemyToGlobalStats()
+    {
+        PlayerPrefs.SetInt("EnemiesKilled", PlayerPrefs.GetInt("EnemiesKilled")+1);
+    }
+
+    public int GetGlobalEnemyKills()
+    {
+        return PlayerPrefs.GetInt("EnemiesKilled");
     }
 
     public void SavePrefs()
@@ -68,7 +80,7 @@ public class GameManager : BaseManager
             Destroy(currentLevel.gameObject);
             currentLevel = null;
         }
-        currentLevel = _levelFactory.CreateLevel(_availableLevels[_selectedLevel]);
+        currentLevel = _levelFactory.CreateLevel(_availableLevels[GetSelectedLevel()]);
         currentLevel.transform.SetParent(_levelFactory.transform);
         currentLevel.transform.localScale = Vector3.one;
         CanvasManager cm = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));

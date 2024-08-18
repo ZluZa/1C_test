@@ -48,11 +48,17 @@ public class SettingsWindow : MonoBehaviour
     private void AssignLevel(int id)
     {
         GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        CanvasManager ce = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));
+        MainMenuElement mme = (MainMenuElement) ce.GetManager(typeof(MainMenuElement));
+        mme.UpdateLevelNumber(id+1);
         gm.SetLevel(id);
     }
     private void AssignSkin(int id)
     {
         GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        CanvasManager ce = (CanvasManager) CoreGame.Instance.GetManager(typeof(CanvasManager));
+        MainMenuElement mme = (MainMenuElement) ce.GetManager(typeof(MainMenuElement));
+        mme.UpdateSkinNumber(id+1);
         gm.SetSkin(id);
     }
 }

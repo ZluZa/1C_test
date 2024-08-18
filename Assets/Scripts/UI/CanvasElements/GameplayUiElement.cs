@@ -34,7 +34,7 @@ public class GameplayUiElement : CanvasElement
         ShowElement(false, delegate
         {
             GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
-            _levelNameText.text = "Level " + gm.GetSelectedLevel();
+            _levelNameText.text = "Level " + (gm.GetSelectedLevel()+1);
             _uiAnimation.Play("InitGameplayUiAnimation");
         });
     }
@@ -48,14 +48,17 @@ public class GameplayUiElement : CanvasElement
 
     public void ShowWinLoseScreen(bool win)
     {
+        GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
         winLoseScreenOpened = true;
         if (win)
         {
+            _winLoseText.text = "Level " + gm.GetSelectedLevel() + 1 + " completed!";
             _continueButton.gameObject.SetActive(true);
             _winLoseScreen.Play("WinLoseScreenWin");
         }
         else
         {
+            _winLoseText.text = "Level " + gm.GetSelectedLevel() + 1 + " failed!";
             _continueButton.gameObject.SetActive(false);
             _winLoseScreen.Play("WinLoseScreenLose");
         }
@@ -66,12 +69,29 @@ public class GameplayUiElement : CanvasElement
     {
         if (winLoseScreenOpened)
             _winLoseScreen.Play("WinLoseScreenDisappear");
+        LoadingScreenElement ls = (LoadingScreenElement) CanvasManager.GetManager(typeof(LoadingScreenElement));
+        
+        ls.ShowElement(true, delegate
+        {
+            CanvasManager.HideEveryWindow();
+            MainMenuElement mme = (MainMenuElement) CanvasManager.GetManager(typeof(MainMenuElement));
+            mme.ShowElement(false, delegate { ls.HideElement(true, delegate {  }); });
+        });
     }
 
     private void NextLevel()
     {
         if (winLoseScreenOpened)
             _winLoseScreen.Play("WinLoseScreenDisappear");
+        LoadingScreenElement ls = (LoadingScreenElement) CanvasManager.GetManager(typeof(LoadingScreenElement));
+
+        ls.ShowElement(true, delegate
+        {
+            GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+            gm.SetLevel(gm.GetSelectedLevel()+1);
+            gm.StartLevel();
+            CanvasManager.HideEveryWindow();
+        });
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)

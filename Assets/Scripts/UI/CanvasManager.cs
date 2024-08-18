@@ -29,4 +29,13 @@ public class CanvasManager : BaseManager
    {
       return _canvasElements[type];
    }
+
+   public void HideEveryWindow()
+   {
+      foreach (var c in _canvasElements.Values)
+      {
+         if (c.GetType() != typeof(LoadingScreenElement))
+            c.HideElement(false, delegate {  });
+      }
+   }
 }

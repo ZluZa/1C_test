@@ -97,6 +97,8 @@ public class Level : FactoryObject
     private void OnEnemyKilled()
     {
         _enemiesKilled++;
+        GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        gm.SetEnemyToGlobalStats();
         _gameplayUiElement.UpdateProgress(_enemiesKilled, _enemiesToSpawn);
         if (_enemiesKilled+(_lData.BaseHp-_hpRemaining) >= _enemiesToSpawn)
         {

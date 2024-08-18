@@ -14,11 +14,11 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FOV
+  - Enemy
+  - Bonus
+  - Player
+  - Border
   - 
   - 
   - 

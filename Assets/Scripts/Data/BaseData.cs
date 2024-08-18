@@ -6,4 +6,8 @@ public class BaseData : ScriptableObject
 {
     [SerializeField] private Sprite objectSprite;
     [SerializeField] private string objectName;
+
+    public Sprite ObjectSprite => objectSprite;
+    public string ObjectName => objectName;
+
 }

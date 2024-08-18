@@ -3,26 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Player : FactoryObject
 {
+    private GameManager _gManager;
     private Coroutine _gameplayCoroutine;
-    private Vector2 leftRightBorders;
+    private Vector2 _leftRightBorders;
     [SerializeField] private PlayerData _data;
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _playerMovement;
     [SerializeField] private Transform _playerImage;
     [SerializeField] private Transform _viewTarget;
 
-    private void Awake()
-    {
-        Init();
-    }
-
-    public void Init()
+    public override FactoryObject Init(BaseData data)
     {
         var rect = GetComponent<RectTransform>().rect;
-        leftRightBorders = new Vector2(rect.xMin, rect.xMax);
-        StartPlaying();
+        _leftRightBorders = new Vector2(rect.xMin, rect.xMax);
+        _gManager = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+        return base.Init(data);
     }
     public void StartPlaying()
     {
@@ -64,7 +61,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            float clampedPos = Mathf.Clamp(_playerMovement.localPosition.x, leftRightBorders.x, leftRightBorders.y);
+            float clampedPos = Mathf.Clamp(_playerMovement.localPosition.x, _leftRightBorders.x, _leftRightBorders.y);
             _playerMovement.localPosition = new Vector3(clampedPos, _playerMovement.localPosition.y); 
             AnimatePlayer();
             yield return new WaitForEndOfFrame();

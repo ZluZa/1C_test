@@ -4,9 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/LevelData", fileName = "LevelData")]
 public class LevelData : BaseData
 {
-    [MinMaxSlider(1, 100)][SerializeField] private Vector2 enemiesAmount;
-    [MinMaxSlider(0.01f, 5)][SerializeField] private Vector2 enemiesSpawnDelay;
+    [SerializeField] private EnemyFactoryData _enemiesData;
+    [MinMaxSlider(1, 100)][SerializeField] private Vector2 _enemiesAmount;
+    [MinMaxSlider(0.01f, 5)][SerializeField] private Vector2 _enemiesSpawnDelay;
 
-    public Vector2 EnemiesAmount => enemiesAmount;
-    public Vector2 EnemiesSpawnDelay => enemiesSpawnDelay;
+    public EnemyFactoryData EnemiesData => _enemiesData;
+    public Vector2 EnemiesAmount => _enemiesAmount;
+    public Vector2 EnemiesSpawnDelay => _enemiesSpawnDelay;
 }

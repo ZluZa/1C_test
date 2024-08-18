@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390767fd31c24c94ac1babe374dfea1f, type: 3}
+  m_Name: Level4
+  m_EditorClassIdentifier: 
+  objectSprite: {fileID: 0}
+  objectName: Level 4
+  _enemiesData: {fileID: 11400000, guid: 9463658feaec2422db8fa62457c3f512, type: 2}
+  _enemiesAmount: {x: 28, y: 52}
+  _enemiesSpawnDelay: {x: 0.6, y: 1.3921406}
+  baseHp: 15

@@ -89,8 +89,15 @@ public class GameplayUiElement : CanvasElement
         {
             CanvasManager.HideEveryWindow();
             GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
-            gm.SetLevel(gm.GetSelectedLevel()+1);
-            gm.StartLevel();
+            if (gm.GetSelectedLevel() + 1 >= gm.AvailableLevels.Count)
+            { 
+                GoToMainMenu();
+            }
+            else
+            {
+                gm.SetLevel(gm.GetSelectedLevel()+1);
+                gm.StartLevel();    
+            }
         });
     }
 

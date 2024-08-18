@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,24 +14,31 @@ public class SettingsWindow : MonoBehaviour
     private Animation _animation;
     private Button _button;
     private bool _opened = false;
-
-    [SerializeField] private List<Button> skinSelectors = new();
-    [SerializeField] private List<Button> levelSelectors = new();
-    private void Awake()
+    
+    [SerializeField] private Button selectorButtonPrefab;
+    [SerializeField] private Transform levelSelectorParent;
+    [SerializeField] private Transform skinSelectorParent;
+    private void Start()
     {
         _animation = GetComponent<Animation>();
         _button = GetComponent<Button>();
         _button.onClick.AddListener(ShowWindow);
         _closebutton.onClick.AddListener(HideWindow);
-        for (int i = 0; i < skinSelectors.Count; i++)
+        GameManager gm = (GameManager) CoreGame.Instance.GetManager(typeof(GameManager));
+
+        for (int i = 0; i < gm.AvailableLevels.Count; i++)
         {
+            var button = Instantiate(selectorButtonPrefab, levelSelectorParent);
             var i1 = i;
-            skinSelectors[i].onClick.AddListener(() => AssignSkin(i1));
+            button.GetComponentInChildren<TextMeshProUGUI>().text = (i1+1).ToString();
+            button.onClick.AddListener(() => AssignLevel(i1));
         }
-        for (int i = 0; i < levelSelectors.Count; i++)
+        for (int i = 0; i < gm.AvailableSkins.Count; i++)
         {
+            var button = Instantiate(selectorButtonPrefab, skinSelectorParent);
             var i1 = i;
-            levelSelectors[i].onClick.AddListener(() => AssignLevel(i1));
+            button.GetComponentInChildren<TextMeshProUGUI>().text = (i1+1).ToString();
+            button.onClick.AddListener(() => AssignSkin(i1));
         }
     }
 
